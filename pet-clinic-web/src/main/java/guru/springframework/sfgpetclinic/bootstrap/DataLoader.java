@@ -46,18 +46,18 @@ public class DataLoader implements CommandLineRunner {
         cat.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);
 
-        Speciality radiology = new Speciality();
+        Specialty radiology = new Specialty();
         radiology.setDescription("radiology");
 
-        Speciality surgery = new Speciality();
+        Specialty surgery = new Specialty();
         surgery.setDescription("surgery");
 
-        Speciality dentistry = new Speciality();
+        Specialty dentistry = new Specialty();
         dentistry.setDescription("dentistry");
 
-        Speciality savedRadiology = specialityService.save(radiology);
-        Speciality savedSurgery = specialityService.save(surgery);
-        Speciality savedDentistry = specialityService.save(dentistry);
+        Specialty savedRadiology = specialityService.save(radiology);
+        Specialty savedSurgery = specialityService.save(surgery);
+        Specialty savedDentistry = specialityService.save(dentistry);
 
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");

@@ -1,10 +1,7 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
 import guru.springframework.sfgpetclinic.model.*;
-import guru.springframework.sfgpetclinic.service.OwnerService;
-import guru.springframework.sfgpetclinic.service.PetTypeService;
-import guru.springframework.sfgpetclinic.service.SpecialityService;
-import guru.springframework.sfgpetclinic.service.VetService;
+import guru.springframework.sfgpetclinic.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -25,6 +22,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     private SpecialityService specialityService;
+
+    @Autowired
+    private VisitService visitService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -90,6 +90,14 @@ public class DataLoader implements CommandLineRunner {
         owner2.getPets().add(finoasCat);
 
         ownerService.save(owner2);
+
+        Visit visitCat=new Visit();
+        visitCat.setPet(finoasCat);
+        visitCat.setDate(LocalDate.now());
+        visitCat.setDescription("Snezzy Kitty");
+
+        visitService.save(visitCat);
+
 
         System.out.println("Loaded Owners....");
 

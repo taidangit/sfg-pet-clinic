@@ -1,6 +1,6 @@
 package guru.springframework.sfgpetclinic.service;
 
-import guru.springframework.sfgpetclinic.model.Speciality;
+import guru.springframework.sfgpetclinic.model.Specialty;
 
-public interface SpecialityService extends CrudService<Speciality, Long> {
+public interface SpecialityService extends CrudService<Specialty, Long> {
 }

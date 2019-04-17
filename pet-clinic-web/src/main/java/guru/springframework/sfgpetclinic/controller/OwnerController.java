@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -23,10 +23,10 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @InitBinder
+    /*@InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
-    }
+    }*/
 
     @GetMapping("/find")
     public String findOwner(Model model) {
@@ -35,12 +35,12 @@ public class OwnerController {
         return "owner/findOwner";
     }
 
-    @GetMapping
-    public String processFindForm(@ModelAttribute Owner owner, BindingResult result, Model model){
+    @PostMapping
+    public String processFindForm(@ModelAttribute Owner owner, BindingResult result, Model model) {
 
         // find owners by last name
         List<Owner> results =
-                ownerService.findAllByLastNameLike("%"+ owner.getLastName() + "%");
+                ownerService.findAllByLastNameLike("%" + owner.getLastName() + "%");
 
         if (results.isEmpty()) {
             // no owners found
@@ -62,6 +62,29 @@ public class OwnerController {
 
         model.addAttribute("owner", ownerService.findById(ownerId));
 
-       return "owner/ownerDetail";
+        return "owner/ownerDetail";
+    }
+
+    @GetMapping("/new")
+    public String initCreationForm(Model model) {
+        model.addAttribute("owner", Owner.builder().build());
+        return "owner/ownerForm";
+    }
+
+    @PostMapping("/save")
+    public String processCreationForm(@Valid @ModelAttribute Owner owner, BindingResult result) {
+        if (result.hasErrors()) {
+            return "owner/ownerForm";
+        }
+
+        Owner savedOwner = ownerService.save(owner);
+        return "redirect:/owners/" + savedOwner.getId();
+    }
+
+    @GetMapping("/{ownerId}/edit")
+    public String initUpdateOwnerForm(@PathVariable Long ownerId, Model model) {
+        model.addAttribute("owner", ownerService.findById(ownerId));
+
+        return "owner/ownerForm";
     }
 }

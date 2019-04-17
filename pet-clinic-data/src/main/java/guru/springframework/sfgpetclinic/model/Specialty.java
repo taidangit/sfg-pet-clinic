@@ -1,6 +1,9 @@
 package guru.springframework.sfgpetclinic.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -12,7 +15,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "specialty")
 public class Specialty extends BaseEntity {

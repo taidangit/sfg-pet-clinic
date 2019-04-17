@@ -1,6 +1,9 @@
 package guru.springframework.sfgpetclinic.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,10 +13,16 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "vet")
-public class Vet extends Person {
+public class Vet extends BaseEntity{
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_specialty",

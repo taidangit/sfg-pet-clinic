@@ -15,18 +15,12 @@ import java.util.List;
 @RequestMapping("/owners")
 public class OwnerController {
 
-
     private OwnerService ownerService;
 
     @Autowired
     public OwnerController(OwnerService ownerService) {
         this.ownerService = ownerService;
     }
-
-    /*@InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder) {
-        dataBinder.setDisallowedFields("id");
-    }*/
 
     @GetMapping("/find")
     public String findOwner(Model model) {

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Detail</title>
+</head>
+<body>
+
+<h2>Pet Information</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <td><b th:text="${pet.name}"></b></td>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td th:text="${pet.petType.name}"></td>
+    </tr>
+    <tr>
+        <th>Birth Date</th>
+        <td th:text="${pet.birthDate}"></td>
+    </tr>
+
+</table>
+
+<a th:href="@{'/owners/'+${ownerId}+'/pets/'+${pet.id}+'/edit'}" class="btn btn-default">Edit
+    Pet</a>
+<a th:href="@{'/owners/'+${ownerId}+'/pets/'+${pet.id}+'/visits/new'}" class="btn btn-default">Add
+    New Visit</a>
+
+<br/>
+<br/>
+<br/>
+<h2>Visit List</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 150px;">Description</th>
+        <th style="width: 150px;">Date</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="visit : ${pet.visits}">
+        <td>
+            <a th:href="@{'/owners/'+${ownerId}+'/pets/'+${pet.id}+'/visits/'+${visit.id}}"
+               th:text="${visit.description}"/></a>
+
+        </td>
+        <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

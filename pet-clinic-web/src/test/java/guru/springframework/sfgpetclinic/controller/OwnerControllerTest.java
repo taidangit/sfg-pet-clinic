@@ -35,6 +35,7 @@ class OwnerControllerTest {
 
     private Set<Owner> owners;
 
+
     private MockMvc mockMvc;
 
     @BeforeEach
@@ -125,15 +126,4 @@ class OwnerControllerTest {
         verifyZeroInteractions(ownerService);
     }
 
-   /* @Test
-    void processUpdateOwnerForm() throws Exception {
-        when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).build());
-
-        mockMvc.perform(post("/owners/1/edit"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/owners/1"))
-                .andExpect(model().attributeExists("owner"));
-
-        verify(ownerService).save(ArgumentMatchers.any());
-    }*/
 }

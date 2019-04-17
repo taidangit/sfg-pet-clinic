@@ -9,11 +9,10 @@ import guru.springframework.sfgpetclinic.service.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Controller
@@ -37,17 +36,74 @@ public class PetController {
         return petTypeService.findAll();
     }
 
-    @ModelAttribute("owner")
+    /*@ModelAttribute("owner")
     public Owner findOwner(@PathVariable("ownerId") Long ownerId) {
         return ownerService.findById(ownerId);
-    }
+    }*/
 
     @GetMapping("/pets/new")
-    public String initCreationForm(Owner owner, Model model) {
+    public String initCreationForm(@PathVariable("ownerId") Long ownerId, Model model) {
+
+        Owner owner = ownerService.findById(ownerId);
+
+        model.addAttribute("owner", owner);
+
         Pet pet = new Pet();
-        owner.getPets().add(pet);
         pet.setOwner(owner);
+
         model.addAttribute("pet", pet);
+
         return "pet/petForm";
     }
+
+    @PostMapping("/pets/save")
+    public String processCreationForm(@PathVariable Long ownerId,
+                                      @Valid @ModelAttribute Pet pet,
+                                      BindingResult result, Model model) {
+        Owner owner = ownerService.findById(ownerId);
+
+        if (result.hasErrors()) {
+            return "pet/petForm";
+        }
+
+        Pet savedPet = petService.save(pet);
+
+        savedPet.setOwner(owner);
+        owner.getPets().add(savedPet);
+
+        ownerService.save(owner);
+
+        //model.addAttribute("owner", owner);
+
+        return "redirect:/owners/" + owner.getId();
+
+    }
+
+    @GetMapping("/pets/{petId}")
+    public String showPet(@PathVariable("ownerId") Long ownerId,
+                          @PathVariable("petId") Long petId, Model model) {
+
+        model.addAttribute("ownerId", ownerId);
+        model.addAttribute("pet", petService.findById(petId));
+
+        return "pet/petDetail";
+    }
+
+    @GetMapping("/pets/{petId}/edit")
+    public String initUpdateForm(@PathVariable Long ownerId,
+                                 @PathVariable Long petId,
+                                 Model model) {
+        Owner owner = ownerService.findById(ownerId);
+
+        Pet petFound = petService.findById(petId);
+
+        petFound.setOwner(owner);
+
+        model.addAttribute("owner", owner);
+
+        model.addAttribute("pet", petFound);
+
+        return "pet/petForm";
+    }
+
 }

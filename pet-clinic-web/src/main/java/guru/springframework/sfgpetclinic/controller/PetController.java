@@ -73,8 +73,6 @@ public class PetController {
 
         ownerService.save(owner);
 
-        //model.addAttribute("owner", owner);
-
         return "redirect:/owners/" + owner.getId();
 
     }

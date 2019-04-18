@@ -11,7 +11,8 @@
     Visit
 </h2>
 
-<form th:action="@{'/owners/'+${owner.id}+'/pets/'+${pet.id}+'/visits/save'}" th:object="${visit}" class="form-horizontal" method="POST">
+<form th:action="@{'/owners/'+${owner.id}+'/pets/'+${pet.id}+'/visits/save'}"
+      th:object="${visit}" class="form-horizontal" method="POST">
     <input type="hidden" th:field="*{id}" />
     <div class="form-group has-feedback">
         <div class="form-group">

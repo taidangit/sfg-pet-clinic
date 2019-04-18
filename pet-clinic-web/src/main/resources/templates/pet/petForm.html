@@ -10,7 +10,8 @@
     <th:block th:if="${pet['new']}">New </th:block>
     Pet
 </h2>
-<form th:action="@{'/owners/'+${owner.id}+'/pets/save'}" th:object="${pet}" class="form-horizontal" method="POST">
+<form th:action="@{'/owners/'+${owner.id}+'/pets/save'}"
+      th:object="${pet}" class="form-horizontal" method="POST">
     <input type="hidden" th:field="*{id}" />
     <div class="form-group has-feedback">
         <div class="form-group">

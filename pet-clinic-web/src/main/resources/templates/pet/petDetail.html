@@ -22,6 +22,10 @@
         <th>Birth Date</th>
         <td th:text="${pet.birthDate}"></td>
     </tr>
+    <tr>
+        <th>Owner</th>
+        <td th:text="${pet.owner.firstName+' '+pet.owner.lastName}"></td>
+    </tr>
 
 </table>
 

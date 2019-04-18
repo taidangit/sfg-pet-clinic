@@ -12,11 +12,11 @@ public class VetController {
     @Autowired
     private VetService vetService;
 
-    @GetMapping({"/vets", "/vets/index", "vets/index.html", "/vets.html"})
+    @GetMapping("/vets")
     public String listVets(Model model) {
 
         model.addAttribute("vets", vetService.findAll());
 
-        return "vet/index";
+        return "vet/vetList";
     }
 }

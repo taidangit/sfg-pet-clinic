@@ -58,7 +58,7 @@ public class PetController {
 
     @PostMapping("/pets/save")
     public String processCreationForm(@PathVariable Long ownerId,
-                                      @Valid @ModelAttribute Pet pet,
+                                      @Valid @ModelAttribute("pet") Pet pet,
                                       BindingResult result, Model model) {
         Owner owner = ownerService.findById(ownerId);
 

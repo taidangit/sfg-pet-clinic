@@ -17,9 +17,10 @@ import java.util.Set;
 public class PetType extends BaseEntity {
 
     @Builder
-    public PetType(Long id, String name) {
+    public PetType(Long id, String name, Set<Pet> pets) {
         super(id);
         this.name = name;
+        this.pets = pets;
     }
 
     @Column(name = "name")
